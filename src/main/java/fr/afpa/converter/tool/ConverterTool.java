@@ -1,6 +1,7 @@
 package fr.afpa.converter.tool;
 
 import java.math.BigInteger;
+import java.util.HexFormat;
 import java.util.regex.Pattern;
 
 /**
@@ -26,7 +27,13 @@ public final class ConverterTool {
      * @return Répresentation décimale du nombre, -1 si la conversion est impossible
      */
     public static int binaryToDecimal(String binary) {
-        return -1;
+        if (binary == null || !binary.matches("[01]+")) {
+            return -1;
+
+        } else {
+            int intBinary = Integer.parseInt(binary, 2);
+            return intBinary;
+        }
     }
 
     /**
@@ -36,7 +43,11 @@ public final class ConverterTool {
      * @return Répresentation binaire du nombre
      */
     public static String decimalToBinary(int decimal) {
-        return null;
+        if (decimal<0) {
+            return "-1";
+        }
+        String binary = Integer.toBinaryString(decimal);
+        return binary;
     }
 
     /**
@@ -47,7 +58,11 @@ public final class ConverterTool {
      * @return Répresentation héxadécimale du nombre
      */
     public static String binaryToHexadecimal(String binary) {
-        return null;
+        if (binary.isEmpty() || !binary.matches("[01]+")) {
+            return "-1";
+        }
+        int decimal = Integer.parseInt(binary, 2);
+        return Integer.toHexString(decimal).toUpperCase();
     }
 
     /**
@@ -57,7 +72,10 @@ public final class ConverterTool {
      * @return Répresentation binaire du nombre
      */
     public static String decimalToHexadecimal(int decimal) {
-        return null;
+        if (decimal < 0) {
+            return "-1";
+        }
+        return Integer.toHexString(decimal).toUpperCase();
     }
 
     /**
@@ -67,7 +85,14 @@ public final class ConverterTool {
      * @return Répresentation binaire du nombre
      */
     public static int hexadecimalToDecimal(String hexadecimal) {
-        return -1;
+        if (hexadecimal.isEmpty() || hexadecimal.isEmpty()) {
+
+            return -1;
+        }
+
+        hexadecimal = hexadecimal.startsWith("0x") || hexadecimal.startsWith("0X") ? hexadecimal.substring(2) :
+                hexadecimal;
+        return Integer.parseInt(hexadecimal, 16);
     }
 
     public static String hexadecimalToBinary(String hex) {
